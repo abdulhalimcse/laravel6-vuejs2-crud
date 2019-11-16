@@ -11,12 +11,27 @@ class UsersController extends Controller
 {
     public function index()
 	{
-		return UserResource::collection(User::paginate(10));
+		return UserResource::collection(User::orderBy('id', 'desc')->paginate(20));
 	}
 	
 	public function show(User $user) 
 	{
 		return new UserResource($user);
+	}
+	
+	public function store(Request $request)
+	{
+		$data = $request->validate([
+			'name' => 'required',
+			'email' => 'required|unique:users',
+			'password' => 'required|min:8',
+		]);
+
+		return new UserResource(User::create([
+			'name' => $data['name'],
+			'email' => $data['email'],
+			'password' => bcrypt($data['password']),
+		]));
 	}
 	
 	public function update(User $user, Request $request) {

@@ -10,6 +10,7 @@ import Hello from './views/Hello'
 import Home from './views/Home'
 
 import UsersIndex from './views/UsersIndex';
+import UsersCreate from './views/UsersCreate';
 import UsersEdit from './views/UsersEdit';
 import NotFound from './views/NotFound';
 
@@ -30,6 +31,11 @@ const router = new VueRouter({
             path: '/users',
             name: 'users.index',
             component: UsersIndex,
+        },
+		{
+            path: '/users/create',
+            name: 'users.create',
+            component: UsersCreate,
         },
 		{
             path: '/users/:id/edit',
